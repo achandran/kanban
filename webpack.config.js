@@ -20,6 +20,17 @@ const common = {
     path: PATHS.build,
     filename: 'bundle.js',
   },
+  module: {
+    loaders: [
+      {
+        // regexp of files the loader applies to
+        test: /\.css$/,
+        loaders: ['style', 'css'],
+        // accepts either a path or an array of paths
+        include: PATHS.app,
+      },
+    ],
+  },
 };
 // Default configuration. We will return this if
 // Webpack is called outside of npm.
