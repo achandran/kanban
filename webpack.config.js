@@ -9,6 +9,7 @@ const PATHS = {
 };
 
 const TARGET = process.env.npm_lifecycle_event;
+process.env.BABEL_ENV = TARGET;
 
 // Entry accepts a path or an object of entries. We'll use the latter
 // since it's more convenient for complex configurations.
