@@ -1,12 +1,12 @@
 const path = require('path');
+const NpmInstallPlugin = require('npm-install-webpack-plugin');
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build'),
 };
-
-const webpack = require('webpack');
-
-const merge = require('webpack-merge');
 
 const TARGET = process.env.npm_lifecycle_event;
 
@@ -36,6 +36,7 @@ const common = {
 // Webpack is called outside of npm.
 if (TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
+    devtool: 'eval-source-map',
     devServer: {
       contentBase: PATHS.build,
       historyApiFallback: true,
@@ -48,6 +49,9 @@ if (TARGET === 'start' || !TARGET) {
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
+      new NpmInstallPlugin({
+        save: true, // --save
+      }),
     ],
   });
 }
